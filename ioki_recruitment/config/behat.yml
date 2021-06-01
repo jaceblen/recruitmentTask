@@ -1,0 +1,37 @@
+default:
+  suites:
+    default:
+      paths: [ '%paths.base%/../src/FunctionalTests/Features']
+      contexts:
+        - FunctionalTests\Contexts\BaseContext
+        - FunctionalTests\Contexts\MainContext
+        - FunctionalTests\Contexts\PearsonMainContext
+  gherkin:
+    cache: false
+  extensions:
+    Behat\MinkExtension:
+      default_session: default
+      javascript_session: default
+      sessions:
+        default:
+          selenium2:
+            wd_host: 'selenium:24444/wd/hub'
+            browser: 'chrome'
+            capabilities:
+              browser: 'chrome'
+              version: '79.0.3945.79'
+              platform: 'LINUX'
+              browserVersion: '79.0.3945.79'
+              extra_capabilities:
+                chromeOptions:
+                  w3c: false
+    SensioLabs\Behat\PageObjectExtension\ServiceContainer\PageObjectExtension:
+      namespaces:
+        page: [FunctionalTests\Pages]
+    emuse\BehatHTMLFormatter\BehatHTMLFormatterExtension:
+      name: html
+      renderer: Twig,Behat2
+      file_name: behatReport
+      print_args: true
+      print_outp: true
+      loop_break: true
